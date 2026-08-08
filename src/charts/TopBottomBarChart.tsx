@@ -61,6 +61,8 @@ export function TopBottomBarChart({ data, title, type, height = 320 }: TopBottom
                 color: '#f8fafc',
                 fontSize: '12px',
               }}
+              labelStyle={{ color: '#f8fafc', fontWeight: 600 }}
+              itemStyle={{ color: '#94a3b8' }}
               formatter={(val: any) => [`Rank ${val}`, 'Rank Position']}
             />
             <Bar dataKey="rank" radius={[0, 6, 6, 0]} barSize={16}>
