@@ -1,16 +1,17 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Sidebar } from '../components/layout/Sidebar';
 import { Header } from '../components/layout/Header';
 import { usePassportData } from '../context/DataContext';
 
 export function MainLayout({ children }: { children: React.ReactNode }) {
   const { isLoading, error } = usePassportData();
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   if (isLoading) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-100 flex flex-col items-center justify-center space-y-4">
         <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
-        <p className="text-sm text-gray-500 dark:text-slate-400 font-medium tracking-wide">
+        <p className="text-sm text-gray-500 dark:text-slate-400 font-medium tracking-wide text-center px-4">
           Loading Henley Passport Index Dataset (2006–2026)...
         </p>
       </div>
@@ -30,10 +31,10 @@ export function MainLayout({ children }: { children: React.ReactNode }) {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-slate-950 text-gray-900 dark:text-slate-100 flex font-sans antialiased transition-colors duration-200">
-      <Sidebar />
+      <Sidebar isOpen={sidebarOpen} onClose={() => setSidebarOpen(false)} />
       <div className="flex-1 flex flex-col min-w-0">
-        <Header />
-        <main className="flex-1 p-6 overflow-y-auto max-w-7xl mx-auto w-full space-y-6">
+        <Header onMenuClick={() => setSidebarOpen(true)} />
+        <main className="flex-1 p-3 sm:p-4 lg:p-6 overflow-y-auto max-w-7xl mx-auto w-full space-y-4 sm:space-y-6">
           {children}
         </main>
       </div>

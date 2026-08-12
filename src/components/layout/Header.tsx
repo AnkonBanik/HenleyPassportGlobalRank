@@ -1,10 +1,14 @@
 import React, { useState } from 'react';
 import { useLocation } from 'react-router-dom';
-import { Search, Moon, Sun, Bookmark, RotateCcw, Share2, Globe2 } from 'lucide-react';
+import { Search, Moon, Sun, Bookmark, RotateCcw, Share2, Globe2, Menu } from 'lucide-react';
 import { useTheme } from '../../theme/ThemeProvider';
 import { usePassportData } from '../../context/DataContext';
 
-export function Header() {
+interface HeaderProps {
+  onMenuClick: () => void;
+}
+
+export function Header({ onMenuClick }: HeaderProps) {
   const { theme, toggleTheme } = useTheme();
   const { filters, updateFilter, resetFilters, years, bookmarks, toggleBookmark } = usePassportData();
   const [showBookmarks, setShowBookmarks] = useState(false);
@@ -20,16 +24,26 @@ export function Header() {
   };
 
   return (
-    <header className="h-16 border-b border-gray-200 dark:border-slate-800/80 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md sticky top-0 z-40 px-6 flex items-center justify-between gap-4 transition-colors duration-200">
+    <header className="h-16 border-b border-gray-200 dark:border-slate-800/80 bg-white/80 dark:bg-slate-950/80 backdrop-blur-md sticky top-0 z-40 px-3 sm:px-6 flex items-center justify-between gap-2 sm:gap-4 transition-colors duration-200">
+
+      {/* Mobile Menu Hamburger */}
+      <button
+        onClick={onMenuClick}
+        className="lg:hidden p-2 text-gray-500 dark:text-slate-400 hover:text-gray-900 dark:hover:text-slate-100 hover:bg-gray-100 dark:hover:bg-slate-900 rounded-lg border border-gray-200 dark:border-slate-800 transition-all shrink-0"
+        aria-label="Open navigation menu"
+      >
+        <Menu className="w-4 h-4" />
+      </button>
+
       {/* Search Input - Only shown on Executive Dashboard */}
       {isExecutiveDashboard ? (
-        <div className="relative flex-1 max-w-md">
+        <div className="relative flex-1 max-w-xs sm:max-w-md">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-400 dark:text-slate-400" />
           <input
             type="text"
             value={filters.searchQuery}
             onChange={(e) => updateFilter('searchQuery', e.target.value)}
-            placeholder="Search country, capital, or ISO code (e.g. Japan, Tokyo, JPN)..."
+            placeholder="Search country, capital, ISO..."
             className="w-full bg-gray-100 dark:bg-slate-900/90 border border-gray-200 dark:border-slate-800 rounded-lg pl-9 pr-4 py-2 text-sm text-gray-900 dark:text-slate-100 placeholder-gray-400 dark:placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-amber-500/50 focus:border-amber-500 transition-all"
           />
           {filters.searchQuery && (
@@ -46,11 +60,11 @@ export function Header() {
       )}
 
       {/* Controls Bar */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-1.5 sm:gap-3">
         {/* Year Selector Dropdown */}
-        <div className="flex items-center gap-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-lg px-3 py-1.5 text-xs text-gray-700 dark:text-slate-300 shadow-sm">
-          <Globe2 className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
-          <span className="font-medium text-gray-500 dark:text-slate-400">Year:</span>
+        <div className="flex items-center gap-1 sm:gap-2 bg-white dark:bg-slate-900 border border-gray-200 dark:border-slate-800 rounded-lg px-2 sm:px-3 py-1.5 text-xs text-gray-700 dark:text-slate-300 shadow-sm">
+          <Globe2 className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400 shrink-0" />
+          <span className="font-medium text-gray-500 dark:text-slate-400 hidden sm:inline">Year:</span>
           <select
             value={filters.selectedYear}
             onChange={(e) => updateFilter('selectedYear', Number(e.target.value))}
@@ -58,7 +72,7 @@ export function Header() {
           >
             {years.map((y) => (
               <option key={y} value={y} className="bg-white dark:bg-slate-900 text-gray-900 dark:text-slate-100">
-                {y} Snapshot
+                {y}
               </option>
             ))}
           </select>
@@ -115,13 +129,13 @@ export function Header() {
           )}
         </div>
 
-        {/* Share Button */}
+        {/* Share Button - hidden on very small screens */}
         <button
           onClick={handleShare}
-          className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-slate-800 hover:border-gray-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900/60 hover:bg-gray-50 dark:hover:bg-slate-900 text-xs text-gray-700 dark:text-slate-300 font-medium transition-all shadow-sm"
+          className="hidden sm:flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-gray-200 dark:border-slate-800 hover:border-gray-300 dark:hover:border-slate-700 bg-white dark:bg-slate-900/60 hover:bg-gray-50 dark:hover:bg-slate-900 text-xs text-gray-700 dark:text-slate-300 font-medium transition-all shadow-sm"
         >
           <Share2 className="w-3.5 h-3.5 text-blue-500 dark:text-blue-400" />
-          <span>{copied ? 'Link Copied!' : 'Share'}</span>
+          <span>{copied ? 'Copied!' : 'Share'}</span>
         </button>
 
         {/* Theme Switcher */}

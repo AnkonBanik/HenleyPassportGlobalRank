@@ -50,7 +50,7 @@ export function WorldMap({ records, onSelectCountry }: WorldMapProps) {
   return (
     <div className="bg-white/90 dark:bg-slate-900/90 border border-gray-200/80 dark:border-slate-800/80 rounded-2xl p-5 shadow-xl backdrop-blur-md relative overflow-hidden transition-colors duration-200">
       {/* Header & Controls */}
-      <div className="flex items-center justify-between mb-4">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between mb-4 gap-2">
         <div>
           <h3 className="text-base font-bold text-gray-900 dark:text-slate-100">Global Passport Mobility World Map</h3>
           <p className="text-xs text-gray-500 dark:text-slate-400">
@@ -58,7 +58,7 @@ export function WorldMap({ records, onSelectCountry }: WorldMapProps) {
           </p>
         </div>
 
-        <div className="flex items-center gap-1.5 bg-gray-100 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 p-1 rounded-lg">
+        <div className="flex items-center gap-1.5 bg-gray-100 dark:bg-slate-950 border border-gray-200 dark:border-slate-800 p-1 rounded-lg self-start sm:self-auto">
           <button
             onClick={handleZoomIn}
             className="p-1.5 text-gray-500 dark:text-slate-400 hover:text-amber-600 dark:hover:text-amber-400 hover:bg-gray-200 dark:hover:bg-slate-900 rounded transition-all"
@@ -84,7 +84,7 @@ export function WorldMap({ records, onSelectCountry }: WorldMapProps) {
       </div>
 
       {/* Map Graphic Canvas */}
-      <div className="h-[420px] w-full bg-gray-100/60 dark:bg-slate-950/60 rounded-xl overflow-hidden border border-gray-200 dark:border-slate-800/60 relative">
+      <div className="h-[220px] sm:h-[320px] lg:h-[420px] w-full bg-gray-100/60 dark:bg-slate-950/60 rounded-xl overflow-hidden border border-gray-200 dark:border-slate-800/60 relative">
         <ComposableMap projectionConfig={{ scale: 145 }} className="w-full h-full">
           <ZoomableGroup
             zoom={position.zoom}
