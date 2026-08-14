@@ -2,6 +2,9 @@
 
 An enterprise-grade, high-performance analytical dashboard application for global passport mobility, rankings, regional comparisons, and historical trends (2006–2026).
 
+<img width="1196" height="699" alt="image" src="https://github.com/user-attachments/assets/e9254157-ba05-47b7-92d1-cf61b8eb0b0d" />
+
+
 ![License](https://img.shields.io/badge/License-MIT-gold.svg)
 ![React](https://img.shields.io/badge/React-19-blue.svg)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5.8-sky.svg)
